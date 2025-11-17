@@ -16,13 +16,16 @@ import java.io.IOException;
  * 
  */
 public class SimpleGUI {
-    private final static int PROPORTION = 3;
+    private static final int PROPORTION = 3;
     private final Controller controller = new Controller();
     private final JFrame frame = new JFrame("Write on a file");
     private final JPanel canvas = new JPanel();
     private final JTextArea text = new JTextArea();
     private final JButton save = new JButton("save");
 
+    /**
+     * empty constructor, prepare all the components and biuld the structure.
+     */
     public SimpleGUI() {
         canvas.setLayout(new BorderLayout());
         canvas.add(text, BorderLayout.CENTER);
@@ -30,11 +33,11 @@ public class SimpleGUI {
         save.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.writeString(text.getText());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                } catch (final IOException ex) {
+                    ex.printStackTrace(); // NOPMD : we've not seen the loggers yet
                 }
             }
         });
@@ -43,7 +46,7 @@ public class SimpleGUI {
         display();
     }
 
-    protected void display() {
+    private void display() {
         /*
          * Make the frame one third the resolution of the screen. This very method is
          * enough for a single screen setup. In case of multiple monitors, the
@@ -68,20 +71,39 @@ public class SimpleGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * return the MainPanel, where all the components are attached
+     * useful for the classes that wants to extend this class.
+     * 
+     * @return the main panel
+     */
     protected JPanel getMainPanel() {
         return this.canvas;
     }
 
+    /**
+     * return the controller that handles all the logic operations.
+     * 
+     * @return the controller
+     */
     protected Controller getController() {
         return this.controller;
     }
 
+    /**
+     * @return the main frame where the main panel is attached
+     */
     protected JFrame getFrame() {
         return this.frame;
     }
 
-        public static void main(String[] args) {
-        SimpleGUI s = new SimpleGUI();
+    /**
+     * creates a new instance of the class, whic is already visible and ready.
+     * 
+     * @param args arguments of the main are useless here
+     */
+    public static void main(final String[] args) {
+        new SimpleGUI();
     }
 
 }
