@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -33,6 +31,7 @@ public class BadIOGUI {
             + File.separator
             + BadIOGUI.class.getSimpleName() + ".txt";
     private static final int PROPORTION = 5;
+    private int lastResult;
     private final Random randomGenerator = new Random();
     private final JFrame frame = new JFrame(TITLE);
 
@@ -41,10 +40,15 @@ public class BadIOGUI {
      */
     public BadIOGUI() {
         final JPanel canvas = new JPanel();
+        final JPanel pane = new JPanel();
         canvas.setLayout(new BorderLayout());
+        pane.setLayout(new BoxLayout(pane, BoxLayout.X_AXIS));
         final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
+        pane.add(write);
+        canvas.add(pane, BorderLayout.CENTER);
         frame.setContentPane(canvas);
+        final JButton read = new JButton("Read the number");
+        pane.add(read);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
          * Handlers
@@ -59,14 +63,22 @@ public class BadIOGUI {
                  * operation. I/O operations may take a long time, during which
                  * your UI becomes completely unresponsive.
                  */
+                lastResult = randomGenerator.nextInt();
                 try (PrintStream ps = new PrintStream(PATH, StandardCharsets.UTF_8)) {
-                    ps.print(randomGenerator.nextInt());
+                    ps.print(lastResult);
                 } catch (final IOException e) {
                     JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace(); // NOPMD: allowed as this is just an exercise
                 }
             }
         });
+
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                System.out.println(lastResult); // NOPMD: required by the exercise.
+            }
+        }); 
     }
 
     private void display() {
@@ -91,6 +103,7 @@ public class BadIOGUI {
         /*
          * OK, ready to push the frame onscreen
          */
+        frame.pack();
         frame.setVisible(true);
     }
 
