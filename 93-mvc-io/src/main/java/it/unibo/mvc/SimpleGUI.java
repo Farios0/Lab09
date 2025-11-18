@@ -28,7 +28,10 @@ public final class SimpleGUI {
     private final JButton print = new JButton("Print");
     private final JButton showHistory = new JButton("Show history");
 
-    public SimpleGUI(){
+    /**
+     * empty constructor that sets up the whole interface dependencies and builds.
+     */
+    public SimpleGUI() {
         frame.add(canvas);
         canvas.setLayout(new BorderLayout());
         pane.setLayout(new BoxLayout(pane, BoxLayout.X_AXIS));
@@ -41,19 +44,19 @@ public final class SimpleGUI {
         print.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(final ActionEvent arg0) {
                 controller.setString(textToPrint.getText());
                 controller.printString();
             }
-            
+
         });
         showHistory.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 textToShow.setText(controller.getHistory().toString());
             }
-            
+
         });
         display();
     }
@@ -106,6 +109,11 @@ public final class SimpleGUI {
 
     }
 
+    /**
+     * main that creates a new instance of the class, already built.
+     * 
+     * @param args here are useless
+     */
     public static void main(final String[] args) {
         new SimpleGUI();
     }

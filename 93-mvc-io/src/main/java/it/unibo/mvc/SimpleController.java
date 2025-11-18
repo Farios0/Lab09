@@ -16,7 +16,7 @@ public final class SimpleController implements Controller {
 
     @Override
     public String getString() {
-        if (toPrint == null){
+        if (toPrint == null) {
             throw new IllegalStateException("Set a String before calling this method");
         }
         return this.toPrint;
@@ -32,7 +32,7 @@ public final class SimpleController implements Controller {
     public void printString() {
         Objects.requireNonNull(toPrint);
         history.add(toPrint);
-        System.out.println(toPrint);
+        System.out.println(toPrint); // NOPMD : required by the exercise
     }
 
     @Override

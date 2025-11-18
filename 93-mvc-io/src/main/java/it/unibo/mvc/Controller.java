@@ -8,28 +8,25 @@ import java.util.List;
 public interface Controller {
 
     /**
-     * 
      * @return the String you can print by calling printString().
      */
-    public String getString();
+    String getString();
 
     /**
      * Set the String that can be further printed through printString().
      * 
      * @param s the String you wanty to print
      */
-    public void setString(String s);
+    void setString(String s);
 
     /**
      * prints the current String on the standard output.
      */
-    public void printString();
+    void printString();
 
     /**
-     * 
      * @return all the printed Strings.
      */
-    public List<String> getHistory();
-
+    List<String> getHistory();
 
 }
